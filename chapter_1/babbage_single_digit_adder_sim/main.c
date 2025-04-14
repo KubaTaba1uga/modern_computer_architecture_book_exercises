@@ -13,10 +13,10 @@
 #include <stdlib.h>
 
 #define is_invalid_number(a) (a < 0 || a > 9)
-static bool is_number(char *str);
+static bool is_valid_number(char *str);
 
 int main(int argc, char *argv[]) {
-  if (argc != 3 || !is_number(argv[1]) || !is_number(argv[2])) {
+  if (argc != 3 || !is_valid_number(argv[1]) || !is_valid_number(argv[2])) {
     puts("Usage: ./adder <first digit> <second digit>");
     return EINVAL;
   }
@@ -24,11 +24,6 @@ int main(int argc, char *argv[]) {
   int addend = atoi(argv[1]);
   int accumulator = atoi(argv[2]);
   bool carry_flag = 0;
-
-  if (is_invalid_number(addend) || is_invalid_number(accumulator)) {
-    puts("Numbers need to be within range 0..9");
-    return EINVAL;
-  }
 
   while (true) {
     if (addend == 0) {
@@ -50,8 +45,10 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-static bool is_number(char *str) {
+static bool is_valid_number(char *str) {
+  int len = 0;
   while (*str != 0) {
+    len++;
     if (!isdigit(*str)) {
       return false;
     }
@@ -59,5 +56,5 @@ static bool is_number(char *str) {
     str++;
   }
 
-  return true;
+  return len <= 1;
 }
