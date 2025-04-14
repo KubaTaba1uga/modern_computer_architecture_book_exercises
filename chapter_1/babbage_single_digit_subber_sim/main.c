@@ -20,11 +20,11 @@ int main(int argc, char *argv[]) {
 
   while (true) {
     if (subend == 0) {
-      accumulator += 10;
+      accumulator = abs(accumulator);
       printf("subend=%d, accumulator=%d, borrow_flag=%d\n", subend, accumulator,
              borrow_flag);
 
-      printf("result=%s%d\n", borrow_flag ? "-" : "", abs(10 - accumulator));
+      printf("result=%s%d\n", borrow_flag ? "-" : "", accumulator);
 
       break;
     }

@@ -127,4 +127,8 @@ static void sub(int *subend, int *accumulator, int *borrow_flag) {
     printf("borrows: %d\n", *borrow_flag);
     puts("");
   }
+
+  if (*accumulator < 0) {
+    *accumulator = 10 - abs(*accumulator);
+  }
 };
