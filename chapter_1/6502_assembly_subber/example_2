@@ -1,0 +1,22 @@
+CLC
+LDA #$00
+STA $00
+LDA #$01
+STA $01
+
+CLC
+LDA #$FF
+STA $02
+LDA #$00
+STA $03
+
+SEC ; We need to set carry to do normal sub
+LDA $00 ;  and write MSB first so the SBC will
+SBC $02 ;  propagate the borrow
+TAY
+
+LDA $01
+SBC $03
+TAX
+
+BRK

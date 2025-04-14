@@ -1,0 +1,22 @@
+CLC
+LDA #$12
+STA $00
+LDA #$34
+STA $01
+
+CLC
+LDA #$56
+STA $02
+LDA #$78
+STA $03
+
+CLC ; We need to write LSB first
+LDA $01 ; so the ADC will propagate 
+ADC $03 ; the carry
+TAY
+
+LDA $00
+ADC $02
+TAX
+
+BRK

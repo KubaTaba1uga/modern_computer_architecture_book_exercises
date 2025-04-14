@@ -1,0 +1,22 @@
+CLC
+LDA #$01
+STA $00
+LDA #$00
+STA $01
+
+CLC
+LDA #$00
+STA $02
+LDA #$00
+STA $03
+
+SEC ; We need to clear carry to do normal sub and write MSB first
+LDA $00 ; so the SBC will propagate 
+SBC $02 ; the borrow
+TAY
+
+LDA $01
+SBC $03
+TAX
+
+BRK
