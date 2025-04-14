@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <errno.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,14 +46,14 @@ int main(int argc, char *argv[]) {
   do {
     any_borrow_left = false;
 
-    for (int i = 0; i < MAX_DIGITS - 1; i++) {
+    for (int i = 0; i < MAX_DIGITS; i++) {
       sub(&borrow_flags[i + 1], &accumulators[i], &borrow_flags[i]);
 
-      if (borrow_flags[i] == 1) {
+      if (borrow_flags[i + 1] == 1) {
         any_borrow_left = true;
       }
 
-      printf("=== STEP %d ===\n", step++);
+      printf("=== STEP %d ===\n", i);
       print_numbers("accumulators", accumulators);
       print_numbers("borrows", borrow_flags);
       puts("");
@@ -60,8 +61,18 @@ int main(int argc, char *argv[]) {
 
   } while (any_borrow_left);
 
+  int result = 0;
+  any_borrow_left = false;
+  for (int i = 0; i < MAX_DIGITS; i++) {
+    result += accumulators[i] * pow(10, (MAX_DIGITS - i - 1));
+    if (borrow_flags[i]) {
+      result -= pow(10, (MAX_DIGITS - i));
+      any_borrow_left = true;
+    }
+  }
+
   printf("=== FINISH ===\n");
-  print_numbers("accumulators", accumulators);
+  printf("result: %d\n", result);
   puts("");
 
   return 0;
