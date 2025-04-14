@@ -41,24 +41,24 @@ int main(int argc, char *argv[]) {
     puts("");
   }
 
-  /* bool any_borrow_left; */
+  bool any_borrow_left;
   /* do { */
-  /* any_borrow_left = false; */
+  any_borrow_left = false;
 
-  /* for (int i = 0; i < MAX_DIGITS - 1; i++) { */
-  /*   if (borrow_flags[i] == 1) { */
-  /*   } */
-  /*   sub(&borrow_flags[i + 1], &accumulators[i], &borrow_flags[i]); */
+  for (int i = 0; i < MAX_DIGITS - 1; i++) {
+    /* if (borrow_flags[i] == 1) { */
+    /* } */
+    sub(&borrow_flags[i + 1], &accumulators[i], &borrow_flags[i]);
 
-  /*   /\* if (borrow_flags[i] == 1) { *\/ */
-  /*   /\*   any_borrow_left = true; *\/ */
-  /*   /\* } *\/ */
+    if (borrow_flags[i] == 1) {
+      any_borrow_left = true;
+    }
 
-  /*   printf("=== STEP %d ===\n", step++); */
-  /*   print_numbers("accumulators", accumulators); */
-  /*   print_numbers("borrows", borrow_flags); */
-  /*   puts(""); */
-  /* } */
+    printf("=== STEP %d ===\n", step++);
+    print_numbers("accumulators", accumulators);
+    print_numbers("borrows", borrow_flags);
+    puts("");
+  }
 
   /* } while (any_borrow_left); */
 
