@@ -1,0 +1,37 @@
+; Populate memory
+LDA #$04
+STA $0203
+LDA #$03
+STA $0202
+LDA #$02
+STA $0201
+LDA #$01
+STA $0200
+
+; Initialize ptr to byte array
+LDA #$00    ; Load A with $00 which is low byte of the address $0200
+STA $10     ; Store it in $10
+
+LDA #$02    ; Load A with $02 which is high byte of the address $0200
+STA $11     ; Store it in $11
+
+; Memory address has been hardcoded, but as well we could read it from registers
+;  making this code trully memory location independent
+
+; Add four bytes together using indirected indexed addressing mode
+CLC
+LDY #$03 ; set amount of bytes to add
+
+LDA ($10), Y ; Loads into reg A value at the address (($10) + Y)
+; parentheses are required for indirect mode
+DEY ; Substracts 1 from reg Y
+
+ADC ($10), Y
+DEY
+
+ADC ($10), Y
+DEY
+
+ADC ($10), Y
+
+; indirect mode on 6502 is allowed only on Y register
